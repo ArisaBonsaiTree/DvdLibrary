@@ -1,5 +1,8 @@
 package com.av.dvdlibrary.controller;
 
+import com.av.dvdlibrary.dao.DvdLibraryDao;
+import com.av.dvdlibrary.dao.DvdLibraryDaoFileImpl;
+import com.av.dvdlibrary.dto.Dvd;
 import com.av.dvdlibrary.ui.DvdLibraryView;
 import com.av.dvdlibrary.ui.UserIO;
 import com.av.dvdlibrary.ui.UserIOConsoleImpl;
@@ -8,6 +11,7 @@ public class DvdLibraryController {
 
     private DvdLibraryView view = new DvdLibraryView();
     private UserIO io = new UserIOConsoleImpl();
+    private DvdLibraryDao dao = new DvdLibraryDaoFileImpl();
 
     public void run() {
         boolean keepGoing = true;
@@ -18,7 +22,7 @@ public class DvdLibraryController {
 
             switch (menuSelection){
                 case 1:
-                    io.print("ADD DVD");
+                    createDvd();
                     break;
                 case 2:
                     io.print("LISTING ALL DVD");
@@ -38,7 +42,12 @@ public class DvdLibraryController {
         }
         io.print("Good bye");
     }
-
+    private void createDvd(){
+        view.displayCreateDvdBanner();
+        Dvd newDvd = view.getNewDvdInfo();
+        dao.addDvd(newDvd.getDvdId(), newDvd);
+        view.displayCreateSuccessBanner();
+    }
 
     private int getMenuSelection(){
         return view.printMenuAndGetSelection();

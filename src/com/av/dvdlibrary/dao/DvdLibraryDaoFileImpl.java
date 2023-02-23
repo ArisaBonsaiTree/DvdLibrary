@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class DvdLibraryDaoFileImpl implements dvdLibraryDao{
+public class DvdLibraryDaoFileImpl implements DvdLibraryDao {
     private Map<String, Dvd> dvds = new HashMap<>();
 
     @Override

@@ -4,7 +4,7 @@ import com.av.dvdlibrary.dto.Dvd;
 
 import java.util.List;
 
-public interface dvdLibraryDao {
+public interface DvdLibraryDao {
     /**
      * Adds the given DVD to the library with dvd id.
      * If there is already a dvd associated with the given

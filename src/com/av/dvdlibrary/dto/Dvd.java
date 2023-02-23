@@ -13,6 +13,10 @@ public class Dvd {
         this.dvdId = dvdId;
     }
 
+    public String getDvdId() {
+        return dvdId;
+    }
+
     public String getTitle() {
         return title;
     }

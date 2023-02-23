@@ -23,7 +23,7 @@ public class DvdLibraryView {
         String mpaRating = io.readString("Please enter mpa rating");
         String directorName = io.readString("Please enter director name");
         String studio = io.readString("Please enter Studio name");
-        String userRating = io.readString("Please enter Cohort");
+        String userRating = io.readString("Please enter rating or note");
 
         Dvd currentDvd = new Dvd(dvdId);
         currentDvd.setTitle(title);
