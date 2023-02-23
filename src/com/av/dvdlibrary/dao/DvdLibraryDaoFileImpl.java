@@ -2,10 +2,8 @@ package com.av.dvdlibrary.dao;
 
 import com.av.dvdlibrary.dto.Dvd;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.io.*;
+import java.util.*;
 
 public class DvdLibraryDaoFileImpl implements DvdLibraryDao {
     public static final String DVD_LIBRARY = "library.txt";
@@ -36,8 +34,7 @@ public class DvdLibraryDaoFileImpl implements DvdLibraryDao {
     }
 
 
-
-    private Dvd unmarshallDvd(String dvdAsText){
+    private Dvd unmarshallDvd(String dvdAsText) {
         // dvdAsText is expecting a line read in from our file.
         // For example, it might look like this:
         // dvdId::title::releaseDate::mpaRating::directorName::studio::userRating
@@ -83,6 +80,104 @@ public class DvdLibraryDaoFileImpl implements DvdLibraryDao {
 
         // We have now created a student! Return it!
         return dvdFromFile;
+    }
+
+
+    private void loadLibrary() throws DvdLibraryDaoException {
+        Scanner scanner;
+
+        try {
+            // Create Scanner for reading the file
+            scanner = new Scanner(
+                    new BufferedReader(
+                            new FileReader(DVD_LIBRARY)));
+        } catch (FileNotFoundException e) {
+            throw new DvdLibraryDaoException(
+                    "-_- Could not load roster data into memory.", e);
+        }
+        // currentLine holds the most recent line read from the file
+        String currentLine;
+        // currentStudent holds the most recent student unmarshalled
+        Dvd currentDvd;
+        // Go through ROSTER_FILE line by line, decoding each line into a
+        // Student object by calling the unmarshallStudent method.
+        // Process while we have more lines in the file
+        while (scanner.hasNextLine()) {
+            // get the next line in the file
+            currentLine = scanner.nextLine();
+            // unmarshall the line into a Student
+            currentDvd = unmarshallDvd(currentLine);
+
+            // We are going to use the student id as the map key for our student object.
+            // Put currentStudent into the map using student id as the key
+            dvds.put(currentDvd.getDvdId(), currentDvd);
+        }
+        // close scanner
+        scanner.close();
+    }
+
+
+    private String marshallDvd(Dvd aDvd) {
+        // We need to turn a Dvd object into a line of text for our file.
+        // For example, we need an in memory object to end up like this:
+        // 4321::Charles::Babbage::Java-September1842
+
+        // It's not a complicated process. Just get out each property,
+        // and concatenate with our DELIMITER as a kind of spacer.
+
+        // Start with the dvd id, since that's supposed to be first.
+        String dvdAsText = aDvd.getDvdId() + DELIMITER;
+
+        dvdAsText += aDvd.getTitle() + DELIMITER;
+        dvdAsText += aDvd.getReleaseDate() + DELIMITER;
+        dvdAsText += aDvd.getMpaRating();
+        dvdAsText += aDvd.getDirectorName();
+        dvdAsText += aDvd.getStudio();
+        dvdAsText += aDvd.getUserRating();
+
+        // We have now turned a student to text! Return it!
+        return dvdAsText;
+    }
+
+
+    /**
+     * Writes all students in the roster out to a ROSTER_FILE.  See loadRoster
+     * for file format.
+     *
+     * @throws DvdLibraryDaoException if an error occurs writing to the file
+     */
+    private void writeRoster() throws DvdLibraryDaoException {
+        // NOTE FOR APPRENTICES: We are not handling the IOException - but
+        // we are translating it to an application specific exception and
+        // then simple throwing it (i.e. 'reporting' it) to the code that
+        // called us.  It is the responsibility of the calling code to
+        // handle any errors that occur.
+        PrintWriter out;
+
+        try {
+            out = new PrintWriter(new FileWriter(DVD_LIBRARY));
+        } catch (IOException e) {
+            throw new DvdLibraryDaoException(
+                    "Could not save dvd data.", e);
+        }
+
+        // Write out the Dvd objects to the roster file.
+        // NOTE TO THE APPRENTICES: We could just grab the dvd map,
+        // get the Collection of dvd and iterate over them but we've
+        // already created a method that gets a List of Dvd so
+        // we'll reuse it.
+        String dvdAsText;
+        List<Dvd> dvdList = this.getAllDvds();
+        for (Dvd currentDvd : dvdList) {
+            // turn a Student into a String
+            dvdAsText = marshallDvd(currentDvd);
+            // write the Student object to the file
+            out.println(dvdAsText);
+            // force PrintWriter to write line to the file
+            out.flush();
+        }
+        // Clean up
+        out.close();
     }
 
 
