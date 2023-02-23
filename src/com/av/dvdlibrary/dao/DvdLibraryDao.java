@@ -12,18 +12,18 @@ public interface DvdLibraryDao {
      * return null.
      *
      * @param dvdId id with which dvd is to be associated
-     * @param dvd dvd to be added to the library
+     * @param dvd   dvd to be added to the library
      * @return the Dvd object previously associated with the given
      * dvd id if it exists, null otherwise
      */
-    Dvd addDvd(String dvdId, Dvd dvd);
+    Dvd addDvd(String dvdId, Dvd dvd) throws DvdLibraryDaoException;
 
     /**
      * Returns a List of all dvds in the library
      *
      * @return List containing all dvds in the library
      */
-    List<Dvd> getAllDvds();
+    List<Dvd> getAllDvds() throws DvdLibraryDaoException;
 
     /**
      * Returns the dvd object associated with the given dvd id.
@@ -33,7 +33,7 @@ public interface DvdLibraryDao {
      * @return the dvd object associated with the given dvd id,
      * null if no such student exists
      */
-    Dvd getDvd(String dvdId);
+    Dvd getDvd(String dvdId) throws DvdLibraryDaoException;
 
 
     /**
@@ -45,5 +45,5 @@ public interface DvdLibraryDao {
      * @return Dvd object that was removed or null if no dvd
      * was associated with the given dvd id
      */
-    Dvd removeDvd(String dvdId);
+    Dvd removeDvd(String dvdId) throws DvdLibraryDaoException;
 }

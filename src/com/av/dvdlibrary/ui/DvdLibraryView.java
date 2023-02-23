@@ -14,8 +14,8 @@ public class DvdLibraryView {
     public int printMenuAndGetSelection(){
         io.print("Main Menu");
         io.print("1. Add a DVD to the collection");
-        io.print("2. List all Dvd in the collection");
-        io.print("3. View a Dvd");
+        io.print("2. List all DvD in the collection");
+        io.print("3. View a DvD");
         io.print("4. Remove a DVD");
         io.print("5. Exit");
 
@@ -23,17 +23,17 @@ public class DvdLibraryView {
     }
 
     public Dvd getNewDvdInfo(){
-        String dvdId = io.readString("Please enter dvd id");
-        String title = io.readString("Please enter title");
-        String releaseDate = io.readString("Please enter release data");
-        String mpaRating = io.readString("Please enter mpa rating");
-        String directorName = io.readString("Please enter director name");
-        String studio = io.readString("Please enter Studio name");
-        String userRating = io.readString("Please enter rating or note");
+        String dvdId = io.readString("Please enter dvd id: ");
+        String title = io.readString("Please enter title: ");
+        String releaseDate = io.readString("Please enter release date: ");
+        String mpaRating = io.readString("Please enter mpa rating: ");
+        String directorName = io.readString("Please enter director name: ");
+        String studio = io.readString("Please enter Studio name: ");
+        String userRating = io.readString("Please enter rating or note: ");
 
         Dvd currentDvd = new Dvd(dvdId);
         currentDvd.setTitle(title);
-        currentDvd.setReleaseData(releaseDate);
+        currentDvd.setReleaseDate(releaseDate);
         currentDvd.setMpaRating(mpaRating);
         currentDvd.setDirectorName(directorName);
         currentDvd.setStudio(studio);
@@ -109,5 +109,10 @@ public class DvdLibraryView {
 
     public void displayUnknownCommandBanner(){
         io.print("Unknown Command!!!");
+    }
+
+    public void displayErrorMessage(String errorMsg){
+        io.print("== ERROR ===");
+        io.print(errorMsg);
     }
 }

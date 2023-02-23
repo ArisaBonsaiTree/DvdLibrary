@@ -12,25 +12,31 @@ public class DvdLibraryDaoFileImpl implements DvdLibraryDao {
     private Map<String, Dvd> dvds = new HashMap<>();
 
     @Override
-    public Dvd addDvd(String dvdId, Dvd dvd) {
-        Dvd prevDvd = dvds.put(dvdId, dvd);
-        return prevDvd;
+    public Dvd addDvd(String dvdId, Dvd dvd) throws DvdLibraryDaoException{
+        loadLibrary();
+        Dvd newDvd = dvds.put(dvdId, dvd);
+        writeRoster();
+        return newDvd;
     }
 
     @Override
-    public List<Dvd> getAllDvds() {
-        return new ArrayList<Dvd>(dvds.values());
+    public List<Dvd> getAllDvds() throws DvdLibraryDaoException{
+        loadLibrary();
+        return new ArrayList<>(dvds.values());
     }
 
     @Override
-    public Dvd getDvd(String dvdId) {
+    public Dvd getDvd(String dvdId) throws DvdLibraryDaoException{
+        loadLibrary();
         return dvds.get(dvdId);
     }
 
     @Override
-    public Dvd removeDvd(String dvdId) {
-        Dvd removeDvd = dvds.remove(dvdId);
-        return removeDvd;
+    public Dvd removeDvd(String dvdId) throws DvdLibraryDaoException{
+        loadLibrary();
+        Dvd removedDvd = dvds.remove(dvdId);
+        writeRoster();
+        return removedDvd;
     }
 
 
@@ -130,10 +136,10 @@ public class DvdLibraryDaoFileImpl implements DvdLibraryDao {
 
         dvdAsText += aDvd.getTitle() + DELIMITER;
         dvdAsText += aDvd.getReleaseDate() + DELIMITER;
-        dvdAsText += aDvd.getMpaRating();
-        dvdAsText += aDvd.getDirectorName();
-        dvdAsText += aDvd.getStudio();
-        dvdAsText += aDvd.getUserRating();
+        dvdAsText += aDvd.getMpaRating() + DELIMITER;
+        dvdAsText += aDvd.getDirectorName() + DELIMITER;
+        dvdAsText += aDvd.getStudio() + DELIMITER;
+        dvdAsText += aDvd.getUserRating() + DELIMITER;
 
         // We have now turned a student to text! Return it!
         return dvdAsText;

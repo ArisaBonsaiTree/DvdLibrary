@@ -3,7 +3,7 @@ package com.av.dvdlibrary.dto;
 public class Dvd {
     private String dvdId;
     private String title;
-    private String releaseData;
+    private String releaseDate;
     private String MpaRating;
     private String directorName;
     private String studio;
@@ -26,11 +26,11 @@ public class Dvd {
     }
 
     public String getReleaseDate() {
-        return releaseData;
+        return releaseDate;
     }
 
-    public void setReleaseData(String releaseData) {
-        this.releaseData = releaseData;
+    public void setReleaseDate(String releaseData) {
+        this.releaseDate = releaseData;
     }
 
     public String getMpaRating() {
