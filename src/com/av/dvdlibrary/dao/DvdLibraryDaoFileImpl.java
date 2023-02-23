@@ -2,6 +2,7 @@ package com.av.dvdlibrary.dao;
 
 import com.av.dvdlibrary.dto.Dvd;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,7 +18,7 @@ public class DvdLibraryDaoFileImpl implements DvdLibraryDao {
 
     @Override
     public List<Dvd> getAllDvds() {
-        throw new UnsupportedOperationException("Not implemented yet!");
+        return new ArrayList<Dvd>(dvds.values());
     }
 
     @Override

@@ -7,6 +7,8 @@ import com.av.dvdlibrary.ui.DvdLibraryView;
 import com.av.dvdlibrary.ui.UserIO;
 import com.av.dvdlibrary.ui.UserIOConsoleImpl;
 
+import java.util.List;
+
 public class DvdLibraryController {
 
     private DvdLibraryView view = new DvdLibraryView();
@@ -17,15 +19,15 @@ public class DvdLibraryController {
         boolean keepGoing = true;
         int menuSelection;
 
-        while(keepGoing){
+        while (keepGoing) {
             menuSelection = getMenuSelection();
 
-            switch (menuSelection){
+            switch (menuSelection) {
                 case 1:
                     createDvd();
                     break;
                 case 2:
-                    io.print("LISTING ALL DVD");
+                    listDvds();
                     break;
                 case 3:
                     io.print("VIEW DVD");
@@ -42,14 +44,24 @@ public class DvdLibraryController {
         }
         io.print("Good bye");
     }
-    private void createDvd(){
+
+
+    private void createDvd() {
         view.displayCreateDvdBanner();
         Dvd newDvd = view.getNewDvdInfo();
         dao.addDvd(newDvd.getDvdId(), newDvd);
         view.displayCreateSuccessBanner();
     }
 
-    private int getMenuSelection(){
+    private void listDvds() {
+        view.displayDisplayAllBanner();
+        List<Dvd> dvdList = dao.getAllDvds();
+        view.displayDvdList(dvdList);
+    }
+
+    private int getMenuSelection() {
         return view.printMenuAndGetSelection();
     }
+
+
 }

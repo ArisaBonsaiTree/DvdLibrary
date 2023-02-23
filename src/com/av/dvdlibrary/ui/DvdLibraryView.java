@@ -2,6 +2,8 @@ package com.av.dvdlibrary.ui;
 
 import com.av.dvdlibrary.dto.Dvd;
 
+import java.util.List;
+
 public class DvdLibraryView {
     private UserIO io = new UserIOConsoleImpl();
 
@@ -42,5 +44,19 @@ public class DvdLibraryView {
 
     public void displayCreateSuccessBanner(){
         io.readString("Student successfulyl created. Please hit enter to continue");
+    }
+
+    public void displayDvdList(List<Dvd> dvdList) {
+        for(Dvd currentDvd: dvdList){
+            String dvdInfo = String.format("#%s : %s %s %s %s %s %s", currentDvd.getDvdId(), currentDvd.getTitle(), currentDvd.getReleaseData(),
+            currentDvd.getMpaRating(), currentDvd.getDirectorName(), currentDvd.getStudio(), currentDvd.getUserRating());
+
+            io.print(dvdInfo);
+        }
+        io.readString("Please hit enter to continue");
+    }
+
+    public void displayDisplayAllBanner() {
+        io.print("=== Display All DVDs ===");
     }
 }
