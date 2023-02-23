@@ -33,7 +33,7 @@ public class DvdLibraryController {
                     viewDvd();
                     break;
                 case 4:
-                    io.print("REMOVE DVD");
+                    removeStudent();
                     break;
                 case 5:
                     keepGoing = false;
@@ -68,6 +68,13 @@ public class DvdLibraryController {
         String dvdId = view.getDvdIdChoice();
         Dvd dvd = dao.getDvd(dvdId);
         view.displayDvd(dvd);
+    }
+
+    private void removeStudent(){
+        view.displayRemoveDvdBanner();
+        String dvdId = view.getDvdIdChoice();
+        Dvd removedDvd = dao.removeDvd(dvdId);
+        view.displayRemoveResult(removedDvd);
     }
 
 

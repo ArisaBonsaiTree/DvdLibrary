@@ -28,6 +28,7 @@ public class DvdLibraryDaoFileImpl implements DvdLibraryDao {
 
     @Override
     public Dvd removeDvd(String dvdId) {
-        throw new UnsupportedOperationException("Not implemented yet!");
+        Dvd removeDvd = dvds.remove(dvdId);
+        return removeDvd;
     }
 }

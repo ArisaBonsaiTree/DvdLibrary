@@ -84,4 +84,18 @@ public class DvdLibraryView {
 
         io.readString("Please hit enter to continue");
     }
+
+    public void displayRemoveDvdBanner(){
+        io.print("=== Remove Dvd ===");
+    }
+
+    public void displayRemoveResult(Dvd dvdRecord){
+        if(dvdRecord != null){
+            io.print("Dvd successfully removed");
+        } else{
+            io.print("No such dvd");
+        }
+
+        io.readString("Please hit enter to continue");
+    }
 }
