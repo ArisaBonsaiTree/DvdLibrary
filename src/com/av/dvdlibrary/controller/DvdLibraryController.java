@@ -12,7 +12,6 @@ import java.util.List;
 public class DvdLibraryController {
 
     private DvdLibraryView view = new DvdLibraryView();
-    private UserIO io = new UserIOConsoleImpl();
     private DvdLibraryDao dao = new DvdLibraryDaoFileImpl();
 
     public void run() {
@@ -39,10 +38,10 @@ public class DvdLibraryController {
                     keepGoing = false;
                     break;
                 default:
-                    io.print("UNKNOWN COMMAND");
+                    unknownCommand();
             }
         }
-        io.print("Good bye");
+        exitMessage();
     }
 
 
@@ -75,6 +74,14 @@ public class DvdLibraryController {
         String dvdId = view.getDvdIdChoice();
         Dvd removedDvd = dao.removeDvd(dvdId);
         view.displayRemoveResult(removedDvd);
+    }
+
+    private void unknownCommand(){
+        view.displayUnknownCommandBanner();
+    }
+
+    private void exitMessage(){
+        view.displayExitBanner();
     }
 
 
