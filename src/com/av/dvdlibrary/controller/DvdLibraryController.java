@@ -30,7 +30,7 @@ public class DvdLibraryController {
                     listDvds();
                     break;
                 case 3:
-                    io.print("VIEW DVD");
+                    viewDvd();
                     break;
                 case 4:
                     io.print("REMOVE DVD");
@@ -61,6 +61,13 @@ public class DvdLibraryController {
 
     private int getMenuSelection() {
         return view.printMenuAndGetSelection();
+    }
+
+    private void viewDvd(){
+        view.displayDisplayDvdBanner();
+        String dvdId = view.getDvdIdChoice();
+        Dvd dvd = dao.getDvd(dvdId);
+        view.displayDvd(dvd);
     }
 
 

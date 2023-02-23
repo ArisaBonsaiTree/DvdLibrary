@@ -23,7 +23,7 @@ public class DvdLibraryDaoFileImpl implements DvdLibraryDao {
 
     @Override
     public Dvd getDvd(String dvdId) {
-        throw new UnsupportedOperationException("Not implemented yet!");
+        return dvds.get(dvdId);
     }
 
     @Override

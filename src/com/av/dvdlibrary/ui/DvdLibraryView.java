@@ -48,7 +48,7 @@ public class DvdLibraryView {
 
     public void displayDvdList(List<Dvd> dvdList) {
         for(Dvd currentDvd: dvdList){
-            String dvdInfo = String.format("#%s : %s %s %s %s %s %s", currentDvd.getDvdId(), currentDvd.getTitle(), currentDvd.getReleaseData(),
+            String dvdInfo = String.format("#%s : %s %s %s %s %s %s", currentDvd.getDvdId(), currentDvd.getTitle(), currentDvd.getReleaseDate(),
             currentDvd.getMpaRating(), currentDvd.getDirectorName(), currentDvd.getStudio(), currentDvd.getUserRating());
 
             io.print(dvdInfo);
@@ -58,5 +58,30 @@ public class DvdLibraryView {
 
     public void displayDisplayAllBanner() {
         io.print("=== Display All DVDs ===");
+    }
+
+    public void displayDisplayDvdBanner(){
+        io.print("=== Display Dvd ===");
+    }
+
+    public String getDvdIdChoice(){
+        return io.readString("Please enter the DVd Id");
+    }
+
+    public void displayDvd(Dvd dvd){
+        if(dvd != null){
+            io.print("Dvd ID: " + dvd.getDvdId());
+            io.print("DvD Title: " + dvd.getTitle());
+            io.print("Dvd ReleaseDate: " + dvd.getReleaseDate());
+            io.print("Dvd Mpa Rating: " + dvd.getMpaRating());
+            io.print("Dvd Director Name: " + dvd.getDirectorName());
+            io.print("Dvd Studio: " + dvd.getStudio());
+            io.print("Dvd User Rating: " + dvd.getUserRating());
+        }
+        else{
+            io.print("No such dvd");
+        }
+
+        io.readString("Please hit enter to continue");
     }
 }

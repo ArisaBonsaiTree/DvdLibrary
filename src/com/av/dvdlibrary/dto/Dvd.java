@@ -25,7 +25,7 @@ public class Dvd {
         this.title = title;
     }
 
-    public String getReleaseData() {
+    public String getReleaseDate() {
         return releaseData;
     }
 
