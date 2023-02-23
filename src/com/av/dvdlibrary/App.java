@@ -1,7 +1,10 @@
 package com.av.dvdlibrary;
 
+import com.av.dvdlibrary.controller.DvdLibraryController;
+
 public class App {
     public static void main(String[] args) {
-        System.out.println("Hello World");
+        DvdLibraryController controller = new DvdLibraryController();
+        controller.run();
     }
 }
