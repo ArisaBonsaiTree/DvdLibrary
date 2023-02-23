@@ -11,7 +11,7 @@ public class DvdLibraryController {
 
     public void run() {
         boolean keepGoing = true;
-        int menuSelection = 0;
+        int menuSelection;
 
         while(keepGoing){
             menuSelection = getMenuSelection();
