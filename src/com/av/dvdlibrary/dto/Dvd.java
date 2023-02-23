@@ -1,11 +1,14 @@
 package com.av.dvdlibrary.dto;
 
 public class Dvd {
+    private String dvdId;
     private String title;
     private String MpaRating;
     private String directorName;
     private String studio;
     private String userRating;
+
+
 
     public String getTitle() {
         return title;
