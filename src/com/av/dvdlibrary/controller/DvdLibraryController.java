@@ -11,8 +11,14 @@ import java.util.List;
 
 public class DvdLibraryController {
 
-    private DvdLibraryView view = new DvdLibraryView();
-    private DvdLibraryDao dao = new DvdLibraryDaoFileImpl();
+    private DvdLibraryDao dao;
+    private DvdLibraryView view;
+
+
+    public DvdLibraryController(DvdLibraryDao dao, DvdLibraryView view) {
+        this.dao = dao;
+        this.view = view;
+    }
 
     public void run() {
         boolean keepGoing = true;

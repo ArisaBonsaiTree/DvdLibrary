@@ -5,7 +5,11 @@ import com.av.dvdlibrary.dto.Dvd;
 import java.util.List;
 
 public class DvdLibraryView {
-    private UserIO io = new UserIOConsoleImpl();
+    private UserIO io;
+
+    public DvdLibraryView(UserIO io) {
+        this.io = io;
+    }
 
     public int printMenuAndGetSelection(){
         io.print("Main Menu");
