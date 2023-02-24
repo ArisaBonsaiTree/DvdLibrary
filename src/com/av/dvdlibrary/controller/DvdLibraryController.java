@@ -14,8 +14,6 @@ public class DvdLibraryController {
     private DvdLibraryDao dao;
     private DvdLibraryView view;
 
-    private UserIO io = new UserIOConsoleImpl();
-
     public DvdLibraryController(DvdLibraryDao dao, DvdLibraryView view) {
         this.dao = dao;
         this.view = view;
@@ -62,7 +60,6 @@ public class DvdLibraryController {
         }
     }
 
-
     private void createDvd() throws DvdLibraryDaoException {
         view.displayCreateDvdBanner();
 
@@ -70,6 +67,14 @@ public class DvdLibraryController {
         dao.addDvd(newDvd.getDvdId(), newDvd);
 
         view.displayCreateSuccessBanner();
+    }
+
+    private void removeDvd() throws DvdLibraryDaoException {
+        view.displayRemoveDvdBanner();
+        String dvdId = view.getDvdIdChoice();
+
+        Dvd removedDvd = dao.removeDvd(dvdId);
+        view.displayRemoveResult(removedDvd);
     }
 
     private void editDvd() throws DvdLibraryDaoException{
@@ -83,14 +88,6 @@ public class DvdLibraryController {
         view.displayDvd(getDvd);
     }
 
-    private void removeDvd() throws DvdLibraryDaoException {
-        view.displayRemoveDvdBanner();
-        String dvdId = view.getDvdIdChoice();
-
-        Dvd removedDvd = dao.removeDvd(dvdId);
-        view.displayRemoveResult(removedDvd);
-    }
-
     private void listAllDvds() throws DvdLibraryDaoException {
         view.displayDisplayAllBanner();
 
@@ -99,12 +96,6 @@ public class DvdLibraryController {
         view.displayDvdList(dvdList);
     }
 
-    private int getMenuSelection() {
-        return view.printMenuAndGetSelection();
-    }
-
-
-
     private void viewDvdById() throws DvdLibraryDaoException {
         view.displayDisplayDvdBanner();
         String dvdId = view.getDvdIdChoice();
@@ -112,13 +103,17 @@ public class DvdLibraryController {
         view.displayDvd(dvd);
     }
 
-
-
     private void viewDvdByTitle() throws DvdLibraryDaoException{
         view.displayDisplayDvdBanner();
         String dvdTitle = view.getDvdTitleChoice();
         Dvd dvd = dao.getDvdByTitle(dvdTitle);
         view.displayDvd(dvd);
+    }
+
+
+
+    private int getMenuSelection() {
+        return view.printMenuAndGetSelection();
     }
 
     private void unknownCommand() {

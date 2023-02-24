@@ -18,7 +18,14 @@ public interface DvdLibraryDao {
      */
     Dvd addDvd(String dvdId, Dvd dvd) throws DvdLibraryDaoException;
 
-    public Dvd editDvd(Dvd dvd) throws DvdLibraryDaoException;
+    /**
+     * We pass the dvd object and override it
+     *
+     * @param dvd Dvd with which dvd is to be associated
+     * @return The dvd object that we successfulyl edited
+     * null otherwise
+     */
+    Dvd editDvd(Dvd dvd) throws DvdLibraryDaoException;
 
 
     /**
@@ -34,10 +41,17 @@ public interface DvdLibraryDao {
      *
      * @param dvdId ID of the dvd to retrieve
      * @return the dvd object associated with the given dvd id,
-     * null if no such student exists
+     * null if no such dvd exists
      */
     Dvd getDvdById(String dvdId) throws DvdLibraryDaoException;
 
+    /**
+     * Returns a Dvd object
+     *
+     * @param dvdTitle Title of the dvd to retrieve
+     * @return the dvd object associated with the given dvd string
+     * null if no such dvd exist
+     */
     Dvd getDvdByTitle(String dvdTitle) throws DvdLibraryDaoException;
     /**
      * Removes from the library the dvd associated with the given id.
