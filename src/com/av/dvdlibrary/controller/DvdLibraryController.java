@@ -75,13 +75,20 @@ public class DvdLibraryController {
     private void editDvd() throws DvdLibraryDaoException{
         view.displayEditDvdBanner();
 
+        Dvd getDvd = dao.getDvdById(view.getDvdIdChoice());
+        Dvd editDvd = view.getEditDvdInfo(getDvd);
+
+        dao.editDvd(editDvd);
+
+        view.displayDvd(getDvd);
+    }
+
+    private void removeDvd() throws DvdLibraryDaoException {
+        view.displayRemoveDvdBanner();
         String dvdId = view.getDvdIdChoice();
-        Dvd dvd = dao.getDvdById(dvdId);
 
-        Dvd editedDvd = view.editDvdInfo(dvd);
-        dao.editTheDvd(editedDvd.getDvdId(), editedDvd);
-
-        view.displayDvd(editedDvd);
+        Dvd removedDvd = dao.removeDvd(dvdId);
+        view.displayRemoveResult(removedDvd);
     }
 
     private void listAllDvds() throws DvdLibraryDaoException {
@@ -105,12 +112,7 @@ public class DvdLibraryController {
         view.displayDvd(dvd);
     }
 
-    private void removeDvd() throws DvdLibraryDaoException {
-        view.displayRemoveDvdBanner();
-        String dvdId = view.getDvdIdChoice();
-        Dvd removedDvd = dao.removeDvd(dvdId);
-        view.displayRemoveResult(removedDvd);
-    }
+
 
     private void viewDvdByTitle() throws DvdLibraryDaoException{
         view.displayDisplayDvdBanner();

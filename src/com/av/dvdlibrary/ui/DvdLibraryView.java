@@ -49,7 +49,8 @@ public class DvdLibraryView {
         return currentDvd;
     }
 
-    public Dvd editDvdInfo(Dvd oldDvd){
+    public Dvd getEditDvdInfo(Dvd oldDvd){
+
         if(oldDvd == null) return null;
         io.print("Old title: " + oldDvd.getTitle());
         String title = io.readString("Please enter new title:");
