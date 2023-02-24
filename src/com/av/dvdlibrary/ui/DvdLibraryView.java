@@ -5,6 +5,10 @@ import com.av.dvdlibrary.dto.Dvd;
 import java.util.List;
 
 public class DvdLibraryView {
+
+    private static final int LOWEST_NUMBER = 1;
+    private static final int HIGHEST_NUMBER = 7;
+
     private UserIO io;
 
     public DvdLibraryView(UserIO io) {
@@ -14,24 +18,28 @@ public class DvdLibraryView {
     public int printMenuAndGetSelection(){
         io.print("Main Menu");
         io.print("1. Add a DVD to the collection");
-        io.print("2. List all DvD in the collection");
-        io.print("3. View a DvD");
-        io.print("4. Remove a DVD");
-        io.print("5. Exit");
+        io.print("2. Remove a DVD from the collection");
+        io.print("3. Edit information for an existing DVD in the collection");
+        io.print("4. List the DVDs in the collection");
+        io.print("5. Display information for a particular DVD (requires ID)");
+        io.print("6. Search for DVD by title");
+        io.print("7. Exit");
 
-        return io.readInt("Please select from the above choices", 1, 5);
+        return io.readInt("Please select from the above choices", LOWEST_NUMBER, HIGHEST_NUMBER);
     }
 
     public Dvd getNewDvdInfo(){
-        String dvdId = io.readString("Please enter dvd id: ");
-        String title = io.readString("Please enter title: ");
-        String releaseDate = io.readString("Please enter release date: ");
-        String mpaRating = io.readString("Please enter mpa rating: ");
-        String directorName = io.readString("Please enter director name: ");
-        String studio = io.readString("Please enter Studio name: ");
-        String userRating = io.readString("Please enter rating or note: ");
+        String dvdId = io.readString("Please enter dvd id:");
+
+        String title = io.readString("Please enter title:");
+        String releaseDate = io.readString("Please enter release date:");
+        String mpaRating = io.readString("Please enter mpa rating:");
+        String directorName = io.readString("Please enter director name:");
+        String studio = io.readString("Please enter Studio name:");
+        String userRating = io.readString("Please enter rating or note:");
 
         Dvd currentDvd = new Dvd(dvdId);
+
         currentDvd.setTitle(title);
         currentDvd.setReleaseDate(releaseDate);
         currentDvd.setMpaRating(mpaRating);
@@ -47,7 +55,7 @@ public class DvdLibraryView {
     }
 
     public void displayCreateSuccessBanner(){
-        io.readString("Student successfulyl created. Please hit enter to continue");
+        io.readString("DVD successfully created. Please hit enter to continue");
     }
 
     public void displayDvdList(List<Dvd> dvdList) {
@@ -65,18 +73,24 @@ public class DvdLibraryView {
     }
 
     public void displayDisplayDvdBanner(){
-        io.print("=== Display Dvd ===");
+        io.print("=== Display DVD ===");
     }
 
+
+
     public String getDvdIdChoice(){
-        return io.readString("Please enter the DVd Id");
+        return io.readString("Please enter the DVD Id");
+    }
+
+    public String getDvdTitleChoice(){
+        return io.readString("Please enter the DVD title");
     }
 
     public void displayDvd(Dvd dvd){
         if(dvd != null){
             io.print("Dvd ID: " + dvd.getDvdId());
             io.print("DvD Title: " + dvd.getTitle());
-            io.print("Dvd ReleaseDate: " + dvd.getReleaseDate());
+            io.print("Dvd Release Date: " + dvd.getReleaseDate());
             io.print("Dvd Mpa Rating: " + dvd.getMpaRating());
             io.print("Dvd Director Name: " + dvd.getDirectorName());
             io.print("Dvd Studio: " + dvd.getStudio());

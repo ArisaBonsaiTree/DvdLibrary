@@ -33,9 +33,9 @@ public interface DvdLibraryDao {
      * @return the dvd object associated with the given dvd id,
      * null if no such student exists
      */
-    Dvd getDvd(String dvdId) throws DvdLibraryDaoException;
+    Dvd getDvdById(String dvdId) throws DvdLibraryDaoException;
 
-
+    Dvd getDvdByTitle(String dvdTitle) throws DvdLibraryDaoException;
     /**
      * Removes from the library the dvd associated with the given id.
      * Returns the dvd object that is being removed or null if
