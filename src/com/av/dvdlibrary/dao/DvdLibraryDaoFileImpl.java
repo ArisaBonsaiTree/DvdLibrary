@@ -13,47 +13,39 @@ public class DvdLibraryDaoFileImpl implements DvdLibraryDao {
 
     @Override
     public Dvd addDvd(String dvdId, Dvd dvd) throws DvdLibraryDaoException{
+        placeFileDataIntoHashMap();
+
         Dvd newDvd = dvds.put(dvdId, dvd);
+
+        writeMapIntoFile();
         return newDvd;
     }
 
     @Override
     public List<Dvd> getAllDvds() throws DvdLibraryDaoException{
+        placeFileDataIntoHashMap();
         return new ArrayList(dvds.values());
     }
 
     @Override
     public Dvd getDvdById(String dvdId) throws DvdLibraryDaoException{
+        placeFileDataIntoHashMap();
         return dvds.get(dvdId);
     }
 
     @Override
     public Dvd getDvdByTitle(String dvdTitle) throws DvdLibraryDaoException {
+        placeFileDataIntoHashMap();
         return iterateMapForTitle(dvdTitle);
     }
 
     @Override
     public Dvd removeDvd(String dvdId) throws DvdLibraryDaoException{
+        placeFileDataIntoHashMap();
+
         Dvd removedDvd = dvds.remove(dvdId);
+        writeMapIntoFile();
         return removedDvd;
-    }
-
-    public Dvd editDvd(String divId) throws DvdLibraryDaoException{
-        Dvd editDvd = dvds.get(divId);
-        editDvd(editDvd);
-
-
-
-        return editDvd;
-    }
-
-    private void editDvd(Dvd dvd){
-        // Don't want to deal with null
-        if(dvd == null) return;
-
-        // Title, Release Date, MPAA rating, Director name, Studio, User Rating
-
-
     }
 
     private Dvd iterateMapForTitle(String title){
@@ -71,6 +63,71 @@ public class DvdLibraryDaoFileImpl implements DvdLibraryDao {
     }
 
 
+
+
+    private void placeFileDataIntoHashMap() throws DvdLibraryDaoException {
+        BufferedReader reader;
+
+
+        try{
+            reader = new BufferedReader(new FileReader(DVD_LIBRARY));
+            String line;
+
+            while((line = reader.readLine()) != null){
+                String[] parts = line.split(DELIMITER);
+                Dvd d = new Dvd(parts[0]);
+                d.setTitle(parts[1]);
+                d.setReleaseDate(parts[2]);
+                d.setMpaRating(parts[3]);
+                d.setDirectorName(parts[4]);
+                d.setStudio(parts[5]);
+                d.setUserRating(parts[6]);
+
+                dvds.put(d.getDvdId(), d);
+            }
+        }
+        catch (IOException e){
+            throw new DvdLibraryDaoException("Couldn't read the text data", e);
+        }
+    }
+
+    private void writeMapIntoFile() throws DvdLibraryDaoException{
+        FileWriter writer;
+        BufferedWriter buffer;
+
+        try{
+            writer = new FileWriter(DVD_LIBRARY);
+            buffer = new BufferedWriter(writer);
+
+
+            for(String key:dvds.keySet()){
+                String writeMe = "";
+
+                writeMe += dvds.get(key).getDvdId() + DELIMITER;
+                writeMe += dvds.get(key).getTitle() + DELIMITER;
+                writeMe += dvds.get(key).getReleaseDate() + DELIMITER;
+                writeMe += dvds.get(key).getMpaRating() + DELIMITER;
+                writeMe += dvds.get(key).getDirectorName() + DELIMITER;
+                writeMe += dvds.get(key).getStudio() + DELIMITER;
+                writeMe += dvds.get(key).getUserRating();
+
+                buffer.write(writeMe);
+                buffer.newLine();
+            }
+
+            buffer.close();
+        }
+        catch (FileNotFoundException e){
+            throw new DvdLibraryDaoException("Could not parse data into file", e);
+        } catch (IOException e) {
+            throw new DvdLibraryDaoException("Could not parse data into file", e);
+        }
+    }
+
+
+    /*
+        LEGACY CODE THAT WAS GIVEN TO US BY CLASS ROSTER CODE ALONG, BUT I GOT RID OFF, SINCE I DECIDED TO MAKE MY OWN
+     */
     private Dvd unmarshallDvd(String dvdAsText) {
         // dvdAsText is expecting a line read in from our file.
         // For example, it might look like this:
@@ -118,7 +175,6 @@ public class DvdLibraryDaoFileImpl implements DvdLibraryDao {
         // We have now created a student! Return it!
         return dvdFromFile;
     }
-
 
     private void loadLibrary() throws DvdLibraryDaoException {
         Scanner scanner;
