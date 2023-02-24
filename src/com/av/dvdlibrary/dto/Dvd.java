@@ -64,4 +64,17 @@ public class Dvd {
     public void setUserRating(String userRating) {
         this.userRating = userRating;
     }
+
+    @Override
+    public String toString() {
+        return "Dvd{" +
+                "dvdId='" + dvdId + '\'' +
+                ", title='" + title + '\'' +
+                ", releaseDate='" + releaseDate + '\'' +
+                ", MpaRating='" + MpaRating + '\'' +
+                ", directorName='" + directorName + '\'' +
+                ", studio='" + studio + '\'' +
+                ", userRating='" + userRating + '\'' +
+                '}';
+    }
 }

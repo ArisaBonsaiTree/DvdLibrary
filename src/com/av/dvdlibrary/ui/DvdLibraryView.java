@@ -30,7 +30,6 @@ public class DvdLibraryView {
 
     public Dvd getNewDvdInfo(){
         String dvdId = io.readString("Please enter dvd id:");
-
         String title = io.readString("Please enter title:");
         String releaseDate = io.readString("Please enter release date:");
         String mpaRating = io.readString("Please enter mpa rating:");
@@ -50,12 +49,51 @@ public class DvdLibraryView {
         return currentDvd;
     }
 
+    public Dvd editDvdInfo(Dvd oldDvd){
+        if(oldDvd == null) return null;
+        io.print("Old title: " + oldDvd.getTitle());
+        String title = io.readString("Please enter new title:");
+
+        io.print("Old release date: " + oldDvd.getReleaseDate());
+        String releaseDate = io.readString("Please enter new release date:");
+
+        io.print("Old MPA Rating: " + oldDvd.getMpaRating());
+        String mpaRating = io.readString("Please enter new mpa rating:");
+
+        io.print("Old director name: " + oldDvd.getDirectorName());
+        String directorName = io.readString("Please enter new director name:");
+
+        io.print("Old studio name: " + oldDvd.getStudio());
+        String studio = io.readString("Please enter new Studio name:");
+
+        io.print("Old user rating: " + oldDvd.getUserRating());
+        String userRating = io.readString("Please enter new rating or note:");
+
+
+        oldDvd.setTitle(title);
+        oldDvd.setReleaseDate(releaseDate);
+        oldDvd.setMpaRating(mpaRating);
+        oldDvd.setDirectorName(directorName);
+        oldDvd.setStudio(studio);
+        oldDvd.setUserRating(userRating);
+
+        return oldDvd;
+    }
+
     public void displayCreateDvdBanner(){
         io.print("=== Create DVD ===");
     }
 
+    public void displayEditDvdBanner(){
+        io.print("=== Edit DVD ===");
+    }
+
     public void displayCreateSuccessBanner(){
         io.readString("DVD successfully created. Please hit enter to continue");
+    }
+
+    public void displayEditSuccessBanner(){
+        io.readString("DVD successfully edited. Please hit enter to continue");
     }
 
     public void displayDvdList(List<Dvd> dvdList) {

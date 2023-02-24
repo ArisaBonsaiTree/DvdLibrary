@@ -13,49 +13,63 @@ public class DvdLibraryDaoFileImpl implements DvdLibraryDao {
 
     @Override
     public Dvd addDvd(String dvdId, Dvd dvd) throws DvdLibraryDaoException{
-        loadLibrary();
         Dvd newDvd = dvds.put(dvdId, dvd);
-        writeRoster();
         return newDvd;
     }
 
     @Override
     public List<Dvd> getAllDvds() throws DvdLibraryDaoException{
-        loadLibrary();
-        return new ArrayList<>(dvds.values());
+        return new ArrayList(dvds.values());
     }
 
     @Override
     public Dvd getDvdById(String dvdId) throws DvdLibraryDaoException{
-        loadLibrary();
         return dvds.get(dvdId);
     }
 
     @Override
     public Dvd getDvdByTitle(String dvdTitle) throws DvdLibraryDaoException {
-        loadLibrary();
-        return iterateOverMapAndFindTitle(dvdTitle);
+        return iterateMapForTitle(dvdTitle);
     }
 
     @Override
     public Dvd removeDvd(String dvdId) throws DvdLibraryDaoException{
-        loadLibrary();
         Dvd removedDvd = dvds.remove(dvdId);
-        writeRoster();
         return removedDvd;
     }
 
-    private Dvd iterateOverMapAndFindTitle(String dvdTitle){
-        String lowerCasedTitle = dvdTitle.toLowerCase();
-        System.out.printf("We have passed %s\n", lowerCasedTitle);
-        System.out.println("DVD has " + dvds.size());
+    public Dvd editDvd(String divId) throws DvdLibraryDaoException{
+        Dvd editDvd = dvds.get(divId);
+        editDvd(editDvd);
 
 
-        for(String key:dvds.keySet()){
-            System.out.println(dvds.get(key).getTitle());
-        }
-        return null; // Didn't find the DVD
+
+        return editDvd;
     }
+
+    private void editDvd(Dvd dvd){
+        // Don't want to deal with null
+        if(dvd == null) return;
+
+        // Title, Release Date, MPAA rating, Director name, Studio, User Rating
+
+
+    }
+
+    private Dvd iterateMapForTitle(String title){
+        Dvd found = null;
+
+        String lowerCase = title.toLowerCase();
+
+        for(String s: dvds.keySet()){
+            if(dvds.get(s).getTitle().toLowerCase().equals(lowerCase)){
+                return dvds.get(s);
+            }
+        }
+
+        return found;
+    }
+
 
     private Dvd unmarshallDvd(String dvdAsText) {
         // dvdAsText is expecting a line read in from our file.

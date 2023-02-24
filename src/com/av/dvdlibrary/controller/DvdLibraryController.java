@@ -36,7 +36,7 @@ public class DvdLibraryController {
                         removeDvd();
                         break;
                     case 3:
-                        io.print("Editing Info about Dvd");
+                        editDvd();
                         break;
                     case 4:
                         listAllDvds();
@@ -50,6 +50,7 @@ public class DvdLibraryController {
                     case 7:
                         keepGoing = false;
                         break;
+
                     default:
                         unknownCommand();
                 }
@@ -71,6 +72,17 @@ public class DvdLibraryController {
         view.displayCreateSuccessBanner();
     }
 
+    private void editDvd() throws DvdLibraryDaoException{
+        view.displayEditDvdBanner();
+
+        String dvdId = view.getDvdIdChoice();
+        Dvd dvd = dao.getDvdById(dvdId);
+
+        Dvd editDvd = view.editDvdInfo(dvd);
+
+        view.displayDvd(editDvd);
+    }
+
     private void listAllDvds() throws DvdLibraryDaoException {
         view.displayDisplayAllBanner();
 
@@ -82,6 +94,8 @@ public class DvdLibraryController {
     private int getMenuSelection() {
         return view.printMenuAndGetSelection();
     }
+
+
 
     private void viewDvdById() throws DvdLibraryDaoException {
         view.displayDisplayDvdBanner();

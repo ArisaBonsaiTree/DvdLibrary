@@ -46,4 +46,6 @@ public interface DvdLibraryDao {
      * was associated with the given dvd id
      */
     Dvd removeDvd(String dvdId) throws DvdLibraryDaoException;
+
+    public Dvd editDvd(String divId) throws DvdLibraryDaoException;
 }
