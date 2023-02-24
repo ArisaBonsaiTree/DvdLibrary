@@ -22,6 +22,14 @@ public class DvdLibraryDaoFileImpl implements DvdLibraryDao {
     }
 
     @Override
+    public Dvd editTheDvd(String dvdId, Dvd dvd) throws DvdLibraryDaoException {
+        placeFileDataIntoHashMap();
+        Dvd editedDvd = dvds.put(dvdId, dvd);
+        writeMapIntoFile();
+        return editedDvd;
+    }
+
+    @Override
     public List<Dvd> getAllDvds() throws DvdLibraryDaoException{
         placeFileDataIntoHashMap();
         return new ArrayList(dvds.values());

@@ -18,6 +18,8 @@ public interface DvdLibraryDao {
      */
     Dvd addDvd(String dvdId, Dvd dvd) throws DvdLibraryDaoException;
 
+    Dvd editTheDvd(String dvdId, Dvd dvd) throws DvdLibraryDaoException;
+
     /**
      * Returns a List of all dvds in the library
      *

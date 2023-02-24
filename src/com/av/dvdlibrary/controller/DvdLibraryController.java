@@ -78,9 +78,10 @@ public class DvdLibraryController {
         String dvdId = view.getDvdIdChoice();
         Dvd dvd = dao.getDvdById(dvdId);
 
-        Dvd editDvd = view.editDvdInfo(dvd);
+        Dvd editedDvd = view.editDvdInfo(dvd);
+        dao.editTheDvd(editedDvd.getDvdId(), editedDvd);
 
-        view.displayDvd(editDvd);
+        view.displayDvd(editedDvd);
     }
 
     private void listAllDvds() throws DvdLibraryDaoException {
